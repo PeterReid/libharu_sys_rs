@@ -1,0 +1,11 @@
+[package]
+name = "libharu_sys"
+version = "0.1.0"
+authors = ["Peter Reid <peter.d.reid@gmail.com>"]
+build = "build.rs"
+
+[build-dependencies]
+gcc = "*"
+
+[dependencies]
+libc = "*"
