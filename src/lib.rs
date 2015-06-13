@@ -1993,6 +1993,8 @@ extern "C" {
     pub fn HPDF_ResetStream(pdf: HPDF_Doc) -> HPDF_STATUS;
     pub fn HPDF_SaveToFile(pdf: HPDF_Doc, file_name: *const ::libc::c_char)
      -> HPDF_STATUS;
+    pub fn HPDF_SaveToExternalStream(pdf: HPDF_Doc, stream: HPDF_Stream) -> HPDF_STATUS;
+    pub fn HPDF_GetMMgr(pdf: HPDF_Doc) -> HPDF_MMgr;
     pub fn HPDF_GetError(pdf: HPDF_Doc) -> HPDF_STATUS;
     pub fn HPDF_GetErrorDetail(pdf: HPDF_Doc) -> HPDF_STATUS;
     pub fn HPDF_ResetError(pdf: HPDF_Doc) -> ();
