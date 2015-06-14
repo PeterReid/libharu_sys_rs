@@ -165,6 +165,7 @@ HPDF_CallbackReader_New  (HPDF_MMgr              mmgr,
                           HPDF_Stream_Seek_Func  seek_fn,
                           HPDF_Stream_Tell_Func  tell_fn,
                           HPDF_Stream_Size_Func  size_fn,
+                          HPDF_Stream_Free_Func  free_fn,
                           void*                  data);
 
 

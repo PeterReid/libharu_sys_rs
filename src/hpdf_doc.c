@@ -70,21 +70,6 @@ LoadType1FontFromStream (HPDF_Doc     pdf,
                          HPDF_Stream  pfmdata);
 
 
-static const char*
-LoadTTFontFromStream (HPDF_Doc         pdf,
-                      HPDF_Stream      font_data,
-                      HPDF_BOOL        embedding,
-                       const char      *file_name);
-
-
-static const char*
-LoadTTFontFromStream2 (HPDF_Doc         pdf,
-                       HPDF_Stream      font_data,
-                       HPDF_UINT        index,
-                       HPDF_BOOL        embedding,
-                       const char      *file_name);
-
-
 /*---------------------------------------------------------------------------*/
 
 HPDF_EXPORT(const char *)
@@ -1525,7 +1510,7 @@ HPDF_LoadTTFontFromFile (HPDF_Doc         pdf,
     font_data = HPDF_FileReader_New (pdf->mmgr, file_name);
 
     if (HPDF_Stream_Validate (font_data)) {
-        ret = LoadTTFontFromStream (pdf, font_data, embedding, file_name);
+        ret = HPDF_LoadTTFontFromStream (pdf, font_data, embedding, file_name);
     } else
         ret = NULL;
 
@@ -1536,11 +1521,11 @@ HPDF_LoadTTFontFromFile (HPDF_Doc         pdf,
 }
 
 
-static const char*
-LoadTTFontFromStream (HPDF_Doc         pdf,
-                      HPDF_Stream      font_data,
-                      HPDF_BOOL        embedding,
-                      const char      *file_name)
+HPDF_EXPORT(const char*)
+HPDF_LoadTTFontFromStream (HPDF_Doc         pdf,
+                           HPDF_Stream      font_data,
+                           HPDF_BOOL        embedding,
+                           const char      *file_name)
 {
     HPDF_FontDef def;
 
@@ -1548,8 +1533,10 @@ LoadTTFontFromStream (HPDF_Doc         pdf,
     HPDF_UNUSED (file_name);
 
     def = HPDF_TTFontDef_Load (pdf->mmgr, font_data, embedding);
+
     if (def) {
         HPDF_FontDef  tmpdef = HPDF_Doc_FindFontDef (pdf, def->base_font);
+
         if (tmpdef) {
             HPDF_FontDef_Free (def);
             return tmpdef->base_font;
@@ -1579,7 +1566,6 @@ LoadTTFontFromStream (HPDF_Doc         pdf,
 
         HPDF_TTFontDef_SetTagName (def, (char *)pdf->ttfont_tag);
     }
-
     return def->base_font;
 }
 
@@ -1602,7 +1588,7 @@ HPDF_LoadTTFontFromFile2 (HPDF_Doc         pdf,
     font_data = HPDF_FileReader_New (pdf->mmgr, file_name);
 
     if (HPDF_Stream_Validate (font_data)) {
-        ret = LoadTTFontFromStream2 (pdf, font_data, index, embedding, file_name);
+        ret = HPDF_LoadTTFontFromStream2 (pdf, font_data, index, embedding, file_name);
     } else
         ret = NULL;
 
@@ -1613,12 +1599,12 @@ HPDF_LoadTTFontFromFile2 (HPDF_Doc         pdf,
 }
 
 
-static const char*
-LoadTTFontFromStream2 (HPDF_Doc         pdf,
-                       HPDF_Stream      font_data,
-                       HPDF_UINT        index,
-                       HPDF_BOOL        embedding,
-                       const char      *file_name)
+HPDF_EXPORT(const char*)
+HPDF_LoadTTFontFromStream2 (HPDF_Doc         pdf,
+                            HPDF_Stream      font_data,
+                            HPDF_UINT        index,
+                            HPDF_BOOL        embedding,
+                            const char      *file_name)
 {
     HPDF_FontDef def;
 

@@ -1575,6 +1575,7 @@ extern "C" {
                                    seek_fn: HPDF_Stream_Seek_Func,
                                    tell_fn: HPDF_Stream_Tell_Func,
                                    size_fn: HPDF_Stream_Size_Func,
+                                   free_fn: HPDF_Stream_Free_Func,
                                    data: *mut ::libc::c_void) -> HPDF_Stream;
     pub fn HPDF_CallbackWriter_New(mmgr: HPDF_MMgr,
                                    write_fn: HPDF_Stream_Write_Func,
@@ -2040,9 +2041,19 @@ extern "C" {
                                    file_name: *const ::libc::c_char,
                                    embedding: HPDF_BOOL)
      -> *const ::libc::c_char;
+    pub fn HPDF_LoadTTFontFromStream(pdf: HPDF_Doc,
+                                     font_data: HPDF_Stream,
+                                     embedding: HPDF_BOOL,
+                                     file_name: *const ::libc::c_char)
+     -> *const ::libc::c_char;
     pub fn HPDF_LoadTTFontFromFile2(pdf: HPDF_Doc,
                                     file_name: *const ::libc::c_char,
                                     index: HPDF_UINT, embedding: HPDF_BOOL)
+     -> *const ::libc::c_char;
+    pub fn HPDF_LoadTTFontFromStream2(pdf: HPDF_Doc,
+                                      font_data: HPDF_Stream,
+                                      index: HPDF_UINT, embedding: HPDF_BOOL,
+                                      file_name: *const ::libc::c_char)
      -> *const ::libc::c_char;
     pub fn HPDF_AddPageLabel(pdf: HPDF_Doc, page_num: HPDF_UINT,
                              style: HPDF_PageNumStyle, first_page: HPDF_UINT,

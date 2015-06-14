@@ -40,7 +40,6 @@ HPDF_FontDef_Free (HPDF_FontDef  fontdef)
         return;
 
     HPDF_PTRACE ((" HPDF_FontDef_Free\n"));
-
     if (fontdef->free_fn)
         fontdef->free_fn (fontdef);
     HPDF_FreeMem (fontdef->mmgr, fontdef);
